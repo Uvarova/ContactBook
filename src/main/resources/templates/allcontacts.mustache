@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<div>
+    <br></br>
+    <p> Enter new contact </p>
+    <form method="post">
+        <input type="text" name="firstName" placeholder="firstName" />
+        <input type="text" name="lastName" placeholder="lastName"/>
+        <input type="text" name="email" placeholder="email"/>
+        <input type="text" name="operatorName" placeholder="operatorName"/>
+        <input type="text" name="phoneNumbers" placeholder="phoneNumbers"/>
+        <button type="submit">Ok</button>
+    </form>
+
+
+</div>
+
+
+
+
+    {{#numbers}}
+    {{number}}
+    {{contact}}
+    {{/numbers}}
+
+
+
+
+
+
+</body>
+</html>
