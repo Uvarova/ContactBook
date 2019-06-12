@@ -1,34 +1,28 @@
 <html>
 
 <head>
+    <title>All contacts</title>
     <link href="/css/style.css" rel="stylesheet"/>
 </head>
 <body>
 
+<h1>Contact book</h1>
 
-<div>
-    <br></br>
-    <p> Enter new contact </p>
-    <form method="post">
-        <input type="text" name="firstName" placeholder="firstName" />
-        <input type="text" name="lastName" placeholder="lastName"/>
-        <input type="text" name="email" placeholder="email"/>
-        <input type="text" name="operatorName" placeholder="operatorName"/>
-        <input type="text" name="phoneNumbers" placeholder="phoneNumbers"/>
-        <button type="submit">Ok</button>
-    </form>
+    {{#phones}}
+    <div class="block">
+        <b>Contact:</b>
+        {{contact.firstName}}
+        {{contact.lastName}}
+        <i>email: </i>
+        {{contact.email}}
+        <i>phone number: </i>
+        {{operatorName}}
+        {{number}}<br/><br/>
+    </div>
+    <br/>
+    {{/phones}}
 
-
-</div>
-
-
-
-
-    {{#numbers}}
-    {{number}}
-    {{contact}}
-    {{/numbers}}
-
+    <a href="/"> main</a>
 
 
 
