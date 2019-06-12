@@ -1,0 +1,16 @@
+
+body{
+    margin-top: 1%;
+    margin-left: 5px;
+    margin-bottom: 1%;
+    padding: 2%;
+}
+.block{
+    background-color: ghostwhite;
+}
+h1{
+    color: black;
+    font-size: x-large;
+    align-content: center;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}

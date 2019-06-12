@@ -1,12 +1,13 @@
 <html>
 
 <head>
+    <title>Contacts</title>
     <link href="/css/style.css" rel="stylesheet"/>
 </head>
 <body>
 
-
-<div class="body">
+<h1>Contact book</h1>
+<div class="block">
     <p> Enter new contact </p>
     <form method="post">
         <input type="text" name="firstName" placeholder="firstName" />
@@ -15,8 +16,19 @@
         <button type="submit">Create</button>
     </form>
 
+    <p> Update contact </p>
+    <form method="post">
+        <input type="text" name="firstName" placeholder="firstName" />
+        <input type="text" name="lastName" placeholder="lastName"/>
+        <input type="text" name="email" placeholder="email"/>
+        <button type="submit">Update</button>
+    </form>
 
+    {{result}}
 </div>
+
+<a href="/"> main</a>
+
 
 
 </body>

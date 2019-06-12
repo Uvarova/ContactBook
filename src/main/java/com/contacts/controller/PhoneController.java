@@ -11,11 +11,11 @@ import com.contacts.repository.ContactRepos;
 import com.contacts.repository.PhoneRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Map;
 
 @Controller
 
@@ -27,20 +27,45 @@ public class PhoneController {
     private PhoneRepos phoneRepos;
 
     @GetMapping("phones")
-    public String contacts(Map<String, Object> model) {
+    public String contacts(Model model) {
+        model.addAttribute("result", "");
         return "phones";
     }
 
     @PostMapping("phones")
-    public String createContact(@RequestParam(name = "contactId", required = false, defaultValue = "") Integer contactId,
-                                @RequestParam(name = "operatorName", required = false, defaultValue = "") String operatorName,
-                                @RequestParam(name = "phoneNumbers", required = false, defaultValue = "") String number,
-                                Map<String, Object> model) {
+    public String createPhone(@RequestParam(name = "contactId", required = false, defaultValue = "") Integer contactId,
+                              @RequestParam(name = "operatorName", required = false, defaultValue = "") String operatorName,
+                              @RequestParam(name = "phoneNumber", required = false, defaultValue = "") String number,
+                              Model model) {
 
         Contact contact = contactRepos.findById(contactId);
-        PhoneNumber phoneNumber = new PhoneNumber(operatorName, number, contact);
+        if(contact != null) {
+            PhoneNumber phoneNumber = new PhoneNumber(operatorName, number, contact);
+            phoneRepos.save(phoneNumber);
+            model.addAttribute("result", "ok");
+        }
+        else{
+            model.addAttribute("result", "no such contact");
+        }
 
-        phoneRepos.save(phoneNumber);
+        return "phones";
+    }
+
+    @PatchMapping("phones/patch")
+    public String patchPhone(@RequestParam(name = "id", required = false, defaultValue = "") Integer id,
+                             @RequestParam(name = "operatorName", required = false, defaultValue = "") String operatorName,
+                             @RequestParam(name = "phoneNumbers", required = false, defaultValue = "") String number,
+                             Model model) {
+
+        PhoneNumber currentPhoneNumber = phoneRepos.findById(id);
+        if(currentPhoneNumber != null) {
+            currentPhoneNumber.setOperatorName(operatorName);
+            currentPhoneNumber.setNumber(number);
+            phoneRepos.save(currentPhoneNumber);
+        }
+        else {
+            model.addAttribute("result", "no such phone");
+        }
 
         return "phones";
     }

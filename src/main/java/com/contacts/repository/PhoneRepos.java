@@ -11,5 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PhoneRepos extends JpaRepository<PhoneNumber, Long> {
-    List<PhoneNumber> findById(Integer id);
+    PhoneNumber findById(Integer id);
+    List<PhoneNumber> findByContactId(Integer id);
 }
