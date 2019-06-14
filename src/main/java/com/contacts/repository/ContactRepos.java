@@ -8,6 +8,9 @@ package com.contacts.repository;
 import com.contacts.entity.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ContactRepos extends JpaRepository<Contact, Long> {
     Contact findById(Integer id);
+    List<Contact> findDistinctByPhoneNumbersIsNull();
 }

@@ -5,7 +5,9 @@ package com.contacts.controller;
  * class created for project ContactBook
  */
 
+import com.contacts.entity.Contact;
 import com.contacts.entity.PhoneNumber;
+import com.contacts.repository.ContactRepos;
 import com.contacts.repository.PhoneRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class ServiceController {
+public class MainController {
 
     @Autowired
     private PhoneRepos phoneRepos;
+    @Autowired
+    private ContactRepos contactRepos;
 
     @RequestMapping("/")
     public String greeting() {
@@ -30,7 +34,8 @@ public class ServiceController {
     public String showAll(Map<String, Object> map) {
         List<PhoneNumber> phones = phoneRepos.findAll();
         map.put("phones",phones);
-
+        List<Contact> contacts = contactRepos.findDistinctByPhoneNumbersIsNull();
+        map.put("contacts", contacts);
         return "allcontacts";
     }
 
