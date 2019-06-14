@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>All contacts</title>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<h1>Contact book</h1>
+
+    <div class="block">
+
+        <p> Update phone </p>
+        <form method="post" action="/patchp/toDo">
+            <input type="hidden" value={{phone.id}} name="id"/>
+            <input type="text" value={{phone.operatorName}} name="operatorName" placeholder="operatorName" />
+            <input type="text" value={{phone.number}} name="number" placeholder="number"/>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+    <br/>
+
+<a href="/"> main</a>
+
+
+</body>
+</html>

@@ -11,18 +11,33 @@
     {{#phones}}
     <div class="block">
         <b>Contact:</b>
+        (id = {{contact.id}})
         {{contact.firstName}}
         {{contact.lastName}}
         <i>email: </i>
         {{contact.email}}
         <i>phone number: </i>
+        (id ={{id}})
         {{operatorName}}
-        {{number}}<br/><br/>
+        {{number}}
     </div>
     <br/>
     {{/phones}}
 
-    <a href="/"> main</a>
+    <h3>Contacts without phones:</h3>
+    {{#contacts}}
+    <div class="block">
+        <b>Contact:</b>
+        (id = {{id}})
+        {{firstName}}
+        {{lastName}}
+        <i>email: </i>
+        {{email}}
+    </div>
+    <br/>
+    {{/contacts}}
+
+   <a href="/"> main</a>
 
 
 

@@ -15,16 +15,16 @@
         <input type="text" name="email" placeholder="email"/>
         <button type="submit">Create</button>
     </form>
-
-    <p> Update contact </p>
-    <form method="post">
-        <input type="text" name="firstName" placeholder="firstName" />
-        <input type="text" name="lastName" placeholder="lastName"/>
-        <input type="text" name="email" placeholder="email"/>
-        <button type="submit">Update</button>
-    </form>
-
     {{result}}
+</div>
+<div class="block">
+
+    <p> Update contact (please enter id contact) </p>
+    <form method="post" action="/patch"/>
+    <input type="text" name="id" placeholder="id" />
+    <button type="submit">Update</button>
+
+
 </div>
 
 <a href="/"> main</a>

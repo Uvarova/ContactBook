@@ -6,12 +6,13 @@ package com.contacts.controller;
  */
 
 import com.contacts.entity.Contact;
+import com.contacts.entity.PhoneNumber;
 import com.contacts.repository.ContactRepos;
+import com.contacts.repository.PhoneRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,6 +21,7 @@ public class ContactController {
 
     @Autowired
     private ContactRepos contactRepos;
+    private PhoneRepos phoneRepos;
 
     @GetMapping("contacts")
     public String contacts(Model model) {
@@ -39,24 +41,4 @@ public class ContactController {
         return "contacts";
     }
 
-    @PatchMapping("contacts/patch")
-    public String patchContact(@RequestParam(name = "id", required = false, defaultValue = "") Integer id,
-                               @RequestParam(name = "firstName", required = false, defaultValue = "") String firstName,
-                               @RequestParam(name = "lastName", required = false, defaultValue = "") String lastName,
-                               @RequestParam(name = "email", required = false, defaultValue = "") String email,
-                               Model model) {
-
-        Contact currentContact = contactRepos.findById(id);
-        if (currentContact != null) {
-            currentContact.setFirstName(firstName);
-            currentContact.setLastName(lastName);
-            currentContact.setEmail(email);
-            contactRepos.saveAndFlush(currentContact);
-            model.addAttribute("result", "ok");
-        } else {
-            model.addAttribute("result", "no such contact");
-        }
-
-        return "contacts";
-    }
 }

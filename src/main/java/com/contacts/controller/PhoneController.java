@@ -35,7 +35,7 @@ public class PhoneController {
     @PostMapping("phones")
     public String createPhone(@RequestParam(name = "contactId", required = false, defaultValue = "") Integer contactId,
                               @RequestParam(name = "operatorName", required = false, defaultValue = "") String operatorName,
-                              @RequestParam(name = "phoneNumber", required = false, defaultValue = "") String number,
+                              @RequestParam(name = "number", required = false, defaultValue = "") String number,
                               Model model) {
 
         Contact contact = contactRepos.findById(contactId);
@@ -46,25 +46,6 @@ public class PhoneController {
         }
         else{
             model.addAttribute("result", "no such contact");
-        }
-
-        return "phones";
-    }
-
-    @PatchMapping("phones/patch")
-    public String patchPhone(@RequestParam(name = "id", required = false, defaultValue = "") Integer id,
-                             @RequestParam(name = "operatorName", required = false, defaultValue = "") String operatorName,
-                             @RequestParam(name = "phoneNumbers", required = false, defaultValue = "") String number,
-                             Model model) {
-
-        PhoneNumber currentPhoneNumber = phoneRepos.findById(id);
-        if(currentPhoneNumber != null) {
-            currentPhoneNumber.setOperatorName(operatorName);
-            currentPhoneNumber.setNumber(number);
-            phoneRepos.save(currentPhoneNumber);
-        }
-        else {
-            model.addAttribute("result", "no such phone");
         }
 
         return "phones";

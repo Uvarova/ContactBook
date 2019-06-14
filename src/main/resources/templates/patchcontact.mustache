@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <title>All contacts</title>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<h1>Contact book</h1>
+
+    <div class="block">
+
+        <p> Update contact </p>
+        <form method="post" action="/patch/toDo">
+            <input type="hidden" value={{contact.id}} name="id"/>
+            <input type="text" value={{contact.firstName}} name="firstName" placeholder="firstName" />
+            <input type="text" value={{contact.lastName}} name="lastName" placeholder="lastName"/>
+            <input type="text" value={{contact.email}} name="email" placeholder="email"/>
+            <button type="submit">Update</button>
+        </form>
+
+    </div>
+    <br/>
+
+<a href="/"> main</a>
+
+
+</body>
+</html>

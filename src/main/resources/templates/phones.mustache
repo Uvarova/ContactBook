@@ -10,13 +10,22 @@
 
 <div class="block">
     <p> Enter new phone </p>
-    <form method="post">
+    <form method="post" action="/phones">
         <input type="text" name="contactId" placeholder="contactId" />
         <input type="text" name="operatorName" placeholder="operatorName"/>
-        <input type="text" name="phoneNumber" placeholder="phoneNumber"/>
+        <input type="text" name="number" placeholder="number"/>
         <button type="submit">Create</button>
     </form>
     {{result}}
+</div>
+
+<div class="block">
+
+    <p> Update phone (please enter id phone) </p>
+    <form method="post" action="/patchp"/>
+    <input type="text" name="id" placeholder="id" />
+    <button type="submit">Update</button>
+
 </div>
 
 <a href="/"> main</a>
