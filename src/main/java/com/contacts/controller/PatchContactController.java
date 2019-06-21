@@ -7,6 +7,7 @@ package com.contacts.controller;
 
 import com.contacts.entity.Contact;
 import com.contacts.repository.ContactRepos;
+import com.contacts.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PatchContactController {
     @Autowired
     private ContactRepos contactRepos;
+    @Autowired
+    private ContactService contactService;
+
     private Contact currentContact;
 
     @PostMapping("patch")
@@ -39,7 +43,8 @@ public class PatchContactController {
     @PostMapping("patch/toDo")
     private String updateContact(Model model, Contact contact) {
         model.addAttribute(contact);
-        patchContact(model, contact);
+       // patchContact(model, contact);
+        contactService.update(contact);
         return "redirect:/contacts";
     }
 

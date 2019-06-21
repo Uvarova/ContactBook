@@ -6,9 +6,7 @@ package com.contacts.controller;
  */
 
 import com.contacts.entity.Contact;
-import com.contacts.entity.PhoneNumber;
-import com.contacts.repository.ContactRepos;
-import com.contacts.repository.PhoneRepos;
+import com.contacts.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ContactController {
 
     @Autowired
-    private ContactRepos contactRepos;
-    private PhoneRepos phoneRepos;
+    private ContactService contactService;
 
     @GetMapping("contacts")
     public String contacts(Model model) {
@@ -34,10 +31,8 @@ public class ContactController {
                                 @RequestParam(name = "lastName", required = false, defaultValue = "") String lastName,
                                 @RequestParam(name = "email", required = false, defaultValue = "") String email,
                                 Model model) {
-        Contact contact = new Contact(firstName, lastName, email);
-        contactRepos.save(contact);
-        model.addAttribute("result", "ok");
 
+        model.addAttribute("result", contactService.save(new Contact(firstName, lastName, email)));
         return "contacts";
     }
 
