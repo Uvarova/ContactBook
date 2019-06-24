@@ -8,6 +8,7 @@ package com.contacts.service;
 import com.contacts.entity.Contact;
 
 public interface ContactService {
-    public String save(Contact contact);
-    public void update(Contact contact);
+    Contact findById(Integer id);
+    String save(Contact contact);
+    void update(Contact contact);
 }

@@ -7,8 +7,8 @@ package com.contacts.controller;
 
 import com.contacts.entity.Contact;
 import com.contacts.entity.PhoneNumber;
-import com.contacts.repository.ContactRepos;
-import com.contacts.repository.PhoneRepos;
+import com.contacts.service.ContactService;
+import com.contacts.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-
 public class PhoneController {
 
     @Autowired
-    private ContactRepos contactRepos;
+    private ContactService contactService;
     @Autowired
-    private PhoneRepos phoneRepos;
+    private PhoneService phoneService;
+    private PhoneNumber currentPhone;
 
     @GetMapping("phones")
     public String contacts(Model model) {
@@ -38,10 +38,10 @@ public class PhoneController {
                               @RequestParam(name = "number", required = false, defaultValue = "") String number,
                               Model model) {
 
-        Contact contact = contactRepos.findById(contactId);
+        Contact contact = contactService.findById(contactId);
         if(contact != null) {
             PhoneNumber phoneNumber = new PhoneNumber(operatorName, number, contact);
-            phoneRepos.save(phoneNumber);
+            phoneService.save(phoneNumber);
             model.addAttribute("result", "ok");
         }
         else{
@@ -49,6 +49,33 @@ public class PhoneController {
         }
 
         return "phones";
+    }
+
+    @PostMapping("patchp")
+    public String showPhone(@RequestParam(name = "id", required = true, defaultValue = "") Integer id,
+                            Model model) {
+
+        currentPhone = phoneService.findById(id);
+        if (currentPhone == null) return "redirect:/phones";
+        model.addAttribute("phone",currentPhone);
+        return "patchphone";
+    }
+
+    @GetMapping("patchp")
+    private String getPhone (Model model){
+        return "patchp";
+    }
+
+    @PostMapping("patchp/toDo")
+    private String updatePhone(Model model, PhoneNumber phone) {
+        model.addAttribute("phone", phone);
+        patchPhone(model, phone);
+        return "redirect:/phones";
+    }
+
+    @PatchMapping("patchp/toDo")
+    private void patchPhone(Model model, PhoneNumber phone) {
+        phoneService.update(phone);
     }
 
 }

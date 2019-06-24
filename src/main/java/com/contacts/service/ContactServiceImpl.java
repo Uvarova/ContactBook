@@ -17,8 +17,11 @@ public class ContactServiceImpl implements ContactService {
 
     @Autowired
     private ContactRepos contactRepos;
-    @Autowired
-    private ContactBookRestService contactBookRestService;
+
+    @Override
+    public Contact findById(Integer id) {
+        return contactRepos.findById(id);
+    }
 
     @Override
     public String save(Contact contact) {
@@ -28,6 +31,6 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void update(Contact contact) {
-        contactBookRestService.sendPatchRequest("http://localhost:8080/patch/toDo");
+        if(contact.getId() != null) contactRepos.saveAndFlush(contact);
     }
 }
