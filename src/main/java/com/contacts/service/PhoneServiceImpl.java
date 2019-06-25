@@ -18,8 +18,6 @@ import org.springframework.stereotype.Service;
 public class PhoneServiceImpl implements PhoneService {
     @Autowired
     private PhoneRepos phoneRepos;
-    @Autowired
-    private ContactRepos contactRepos;
 
     private Contact currentContact;
 
@@ -40,4 +38,12 @@ public class PhoneServiceImpl implements PhoneService {
         phone.setContact(currentContact);
         if(phone.getId() != null && phone.getContact() != null) phoneRepos.saveAndFlush(phone);
     }
+
+    @Override
+    public String delete(Integer id) {
+        phoneRepos.delete(phoneRepos.findById(id));
+        return "ok";
+    }
+
+
 }

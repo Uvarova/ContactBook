@@ -20,11 +20,19 @@
 <div class="block">
 
     <p> Update contact (please enter id contact) </p>
-    <form method="post" action="/patch"/>
+    <form method="post" action="/patch">
     <input type="text" name="id" placeholder="id" />
     <button type="submit">Update</button>
+    </form>
 
+</div>
 
+<div class="block">
+    <p> Delete contact (please enter id contact) </p>
+    <form method="post" action="/delete">
+    <input type="text" name="id" placeholder="id" />
+    <button type="submit">Delete</button>
+    </form>
 </div>
 
 <a href="/"> main</a>
