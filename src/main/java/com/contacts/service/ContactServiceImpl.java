@@ -6,10 +6,14 @@ package com.contacts.service;
  */
 
 import com.contacts.entity.Contact;
+import com.contacts.entity.PhoneNumber;
 import com.contacts.repository.ContactRepos;
+import com.contacts.repository.PhoneRepos;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @NoArgsConstructor
@@ -17,6 +21,10 @@ public class ContactServiceImpl implements ContactService {
 
     @Autowired
     private ContactRepos contactRepos;
+    @Autowired
+    private PhoneRepos phoneRepos;
+
+    private Contact contact;
 
     @Override
     public Contact findById(Integer id) {
@@ -32,5 +40,16 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void update(Contact contact) {
         if(contact.getId() != null) contactRepos.saveAndFlush(contact);
+    }
+
+    @Override
+    public String delete(Integer id) {
+        contact = contactRepos.findById(id);
+        List<PhoneNumber> phones = phoneRepos.findByContactId(id);
+        for (PhoneNumber curPhone:phones) {
+            phoneRepos.delete(curPhone);
+        }
+        contactRepos.delete(contact);
+        return "ok";
     }
 }

@@ -64,4 +64,10 @@ public class ContactController {
     private void patchContact(Model model, Contact contact) {
         contactService.update(contact);
     }
+
+    @PostMapping("delete")
+    private String deleteContact(@RequestParam(name = "id", required = true, defaultValue = "") Integer id) {
+        contactService.delete(id);
+        return "redirect:/contacts";
+    }
 }

@@ -11,4 +11,5 @@ public interface PhoneService {
     PhoneNumber findById(Integer id);
     String save(PhoneNumber phone);
     void update(PhoneNumber phone);
+    String delete(Integer id);
 }
