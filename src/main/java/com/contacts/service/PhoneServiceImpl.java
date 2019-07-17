@@ -7,18 +7,19 @@ package com.contacts.service;
 
 import com.contacts.entity.Contact;
 import com.contacts.entity.PhoneNumber;
-import com.contacts.repository.ContactRepos;
 import com.contacts.repository.PhoneRepos;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.logging.Logger;
 
 @Service
 @NoArgsConstructor
 public class PhoneServiceImpl implements PhoneService {
     @Autowired
     private PhoneRepos phoneRepos;
-
+    private static final Logger LOGGER = Logger.getLogger(ContactServiceImpl.class.getName());
     private Contact currentContact;
 
     @Override
@@ -29,6 +30,7 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public String save(PhoneNumber phone) {
         phoneRepos.save(phone);
+        LOGGER.info("phone " + phone.getId() + " is saved");
         return "ok";
     }
 
@@ -36,12 +38,16 @@ public class PhoneServiceImpl implements PhoneService {
     public void update(PhoneNumber phone) {
         currentContact = phoneRepos.findById(phone.getId()).getContact();
         phone.setContact(currentContact);
-        if(phone.getId() != null && phone.getContact() != null) phoneRepos.saveAndFlush(phone);
+        if(phone.getId() != null && phone.getContact() != null) {
+            phoneRepos.saveAndFlush(phone);
+            LOGGER.info("phone " + phone.getId() + " is updated");
+        }
     }
 
     @Override
     public String delete(Integer id) {
         phoneRepos.delete(phoneRepos.findById(id));
+        LOGGER.info("phone " + id + " is deleted");
         return "ok";
     }
 
