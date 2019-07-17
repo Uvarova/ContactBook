@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @NoArgsConstructor
@@ -25,6 +26,7 @@ public class ContactServiceImpl implements ContactService {
     private PhoneRepos phoneRepos;
 
     private Contact contact;
+    private static final Logger LOGGER = Logger.getLogger(ContactServiceImpl.class.getName());
 
     @Override
     public Contact findById(Integer id) {
@@ -34,12 +36,14 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public String save(Contact contact) {
         contactRepos.save(contact);
+        LOGGER.info("contact " + contact.getId() + " is saved");
         return "ok";
     }
 
     @Override
     public void update(Contact contact) {
         if(contact.getId() != null) contactRepos.saveAndFlush(contact);
+        LOGGER.info("contact " + contact.getId() + " is updated");
     }
 
     @Override
@@ -48,8 +52,10 @@ public class ContactServiceImpl implements ContactService {
         List<PhoneNumber> phones = phoneRepos.findByContactId(id);
         for (PhoneNumber curPhone:phones) {
             phoneRepos.delete(curPhone);
+            LOGGER.info("phone " + curPhone.getId() + " is deleted");
         }
         contactRepos.delete(contact);
+        LOGGER.info("contact " + contact.getId() + " is deleted");
         return "ok";
     }
 }
